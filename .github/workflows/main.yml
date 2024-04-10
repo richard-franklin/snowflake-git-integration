@@ -9,14 +9,6 @@ jobs:
   deploy-snowflake-job:
     runs-on: ubuntu-latest
 
-    env:
-      SNOWSQL_PWD: ${{ secrets.SNOWFLAKE_PASS }}
-      SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACC }}
-      SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USER }}
-      SNOWSQL_DATABASE: ${{ secrets.SNOWFLAKE_DB }}
-      SNOWSQL_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-      SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }} 
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -27,5 +19,12 @@ jobs:
           SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.9-linux_x86_64.bash
 
       - name: Fetch files from github repo
+        env:
+          SNOWSQL_PWD: ${{ secrets.SNOWFLAKE_PASS }}
+          SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACC }}
+          SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWSQL_DATABASE: ${{ secrets.SNOWFLAKE_DB }}
+          SNOWSQL_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+          SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }} 
         run: |
           ~/bin/snowsql -u $SNOWSQL_USER -a $SNOWSQL_ACCOUNT -d $SNOWSQL_DATABASE -s $SNOWSQL_SCHEMA -q "SELECT 1;"
