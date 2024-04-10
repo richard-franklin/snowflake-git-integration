@@ -17,15 +17,19 @@ jobs:
       SNOWSQL_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
       SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
 
-
-    environment: production_env
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Install SnowSQL
-        run: |
-          curl -O https://sfc-repo.snowflakecomputing.com/snowsql/bootstrap/1.2/linux_x86_64/snowsql-1.2.9-linux_x86_64.bash
-          SNOWSQL_DEST=~/bin SNOWSQL_LOGIN_SHELL=~/.profile bash snowsql-1.2.9-linux_x86_64.bash
+        uses: snowflakedb/snowflake-actions/setup-cli@master
+        with:
+          version: 'latest'
       
       - name: Fetch files from github repo
         run: |
-          ~/bin/snowsql -q 'select 1;' -o friendly=false
+          snowsql -u $SNOWSQL_USER \
+                -a $SNOWSQL_ACCOUNT \
+                -d $SNOWSQL_DATABASE \
+                -s $SNOWSQL_SCHEMA \
+                -q "SELECT 1;"
