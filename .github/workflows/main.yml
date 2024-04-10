@@ -15,7 +15,7 @@ jobs:
       SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USER }}
       SNOWSQL_DATABASE: ${{ secrets.SNOWFLAKE_DB }}
       SNOWSQL_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-      SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }} 
 
     steps:
       - name: Checkout code
