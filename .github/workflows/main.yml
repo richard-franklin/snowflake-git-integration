@@ -28,4 +28,4 @@ jobs:
       
       - name: Fetch files from github repo
         run: |
-          ~/bin/snowsql -q 'ALTER GIT REPOSITORY git_repo_test FETCH;' -o friendly=false
+          ~/bin/snowsql -q 'select 1;' -o friendly=false
