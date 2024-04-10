@@ -28,8 +28,4 @@ jobs:
 
       - name: Fetch files from github repo
         run: |
-          snowsql -u $SNOWSQL_USER \
-                -a $SNOWSQL_ACCOUNT \
-                -d $SNOWSQL_DATABASE \
-                -s $SNOWSQL_SCHEMA \
-                -q "SELECT 1;"
+          snowsql -u $SNOWSQL_USER -a $SNOWSQL_ACCOUNT -d $SNOWSQL_DATABASE -s $SNOWSQL_SCHEMA -q "SELECT 1;"
